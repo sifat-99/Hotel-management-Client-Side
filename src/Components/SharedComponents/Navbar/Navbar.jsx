@@ -137,9 +137,7 @@ export function StickyNavbar() {
             <Button fullWidth variant="text" size="sm" className="">
               <span>Log In</span>
             </Button>
-            <Button fullWidth variant="gradient" size="sm" className="">
-              <span>Sign in</span>
-            </Button>
+            
           </div>
         </Collapse>
       </Navbar>

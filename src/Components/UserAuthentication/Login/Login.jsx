@@ -10,7 +10,7 @@ import {
 } from "@material-tailwind/react";
 import { useContext } from "react";
 import { AuthContext } from "../../Auth/AuthProvider/AuthProvider";
-import { Link, redirect, useLocation, useNavigate } from "react-router-dom";
+import { redirect, useLocation, useNavigate } from "react-router-dom";
 
 export function LoginCard() {
 
@@ -30,7 +30,8 @@ export function LoginCard() {
     console.log(userInfo);
 
     signIn(email, password)
-    .then(()=>{
+    .then((res)=>{
+      console.log(res?.user)
       navigate(location ? location?.state : "/");
         redirect("/");
     })
@@ -75,11 +76,13 @@ export function LoginCard() {
         <Typography variant="small" className="mt-6 flex justify-center">
           Don&apos;t have an account?
           <Typography
+            as="a"
+            href="/register"
             variant="small"
             color="blue-gray"
             className="ml-1 font-bold"
           >
-            <button> <Link to={'/register'}> <p>Sign up</p> </Link> </button>
+            Sign up
           </Typography>
         </Typography>
       </CardFooter>

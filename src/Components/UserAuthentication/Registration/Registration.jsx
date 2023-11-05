@@ -11,7 +11,7 @@ import {
 import { useContext, useState } from "react";
 import { AuthContext } from "../../Auth/AuthProvider/AuthProvider";
 import swal from "sweetalert";
-import { Link } from "react-router-dom";
+
 
 export function RegistrationCard() {
   const { createUser, logOut } = useContext(AuthContext);
@@ -108,12 +108,13 @@ export function RegistrationCard() {
           Already have an account?
           <Typography
             
+            as="a"
             href="/login"
             variant="small"
             color="blue-gray"
             className="ml-1  text-red-500 font-bold"
           >
-            <button> <Link to={'/login'}><p>Login</p></Link> </button>
+             Login
           </Typography>
         </Typography>
       </CardFooter>
