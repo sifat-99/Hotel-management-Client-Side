@@ -1,10 +1,32 @@
 import { Card, Typography } from "@material-tailwind/react";
+import { CarouselCustomNavigation } from "./Banner";
+import { Link } from "react-router-dom";
+import { useContext } from "react";
+import { AuthContext } from "../Auth/AuthProvider/AuthProvider";
+
+
 
 
 const Home = () => {
+
+  const {user} = useContext(AuthContext)
   return (
     <div>
-      <h2>Home</h2>
+
+    <div className="h-[50vh] w-ful mx-12 mt-12">
+    <CarouselCustomNavigation></CarouselCustomNavigation>
+    </div>
+ 
+      {
+        !user && <div className="w-[70vw] mx-auto border border-pink-100 mt-12 h-[10vh] rounded-lg flex items-center justify-center gap-8 bg-pink-400 text-black font-bold px-4" >
+
+        <h2 className="text-2xl md:text-6xl">Login to Save 30%</h2>
+        <Link to={'/login'}><button className="btn btn-primary w-32">Login</button></Link>
+         
+         
+       </div>
+      }
+
       <div className="mx-auto max-w-screen-lg py-12">
         <Card className="mb-12 overflow-hidden">
           <img
@@ -16,22 +38,10 @@ const Home = () => {
         <Typography variant="h2" color="blue-gray" className="mb-2">
           What is Material Tailwind
         </Typography>
-        <Typography color="gray" className="font-normal">
-          Can you help me out? you will get a lot of free exposure doing this
-          can my website be in english?. There is too much white space do less
-          with more, so that will be a conversation piece can you rework to make
-          the pizza look more delicious other agencies charge much lesser can
-          you make the blue bluer?. I think we need to start from scratch can my
-          website be in english?, yet make it sexy i&apos;ll pay you in a week
-          we don&apos;t need to pay upfront i hope you understand can you make
-          it stand out more?. Make the font bigger can you help me out? you will
-          get a lot of free exposure doing this that&apos;s going to be a chunk
-          of change other agencies charge much lesser. Are you busy this
-          weekend? I have a new project with a tight deadline that&apos;s going
-          to be a chunk of change. There are more projects lined up charge extra
-          the next time.
-        </Typography>
+        
       </div>
+
+      
     </div>
   );
 };

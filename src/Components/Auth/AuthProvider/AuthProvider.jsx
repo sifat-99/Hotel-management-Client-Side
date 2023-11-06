@@ -35,19 +35,19 @@ const AuthProvider = ({ children }) => {
     });
   };
   const signIn = (email, password) => {
-    // setLoading(true);
+    setLoading(true);
     return signInWithEmailAndPassword(auth, email, password);
   };
 
   const logOut = () => {
-    // setLoading(true);
+    setLoading(true);
     return auth.signOut();
   };
 
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
       setUser(currentUser);
-      // setLoading(false);
+      setLoading(false);
     });
     return () => {
       unSubscribe();

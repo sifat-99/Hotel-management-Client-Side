@@ -25,6 +25,9 @@ const routes = createBrowserRouter([
             {
                 path: "register",
                 element: <RegistrationCard></RegistrationCard>
+            },
+            {
+                path: "/about",
             }
         ]
     },

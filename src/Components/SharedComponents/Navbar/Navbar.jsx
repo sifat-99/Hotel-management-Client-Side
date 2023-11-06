@@ -1,147 +1,336 @@
-import React from "react";
+import React, { useContext, useEffect, useState } from "react";
 import {
   Navbar,
-  Collapse,
   Typography,
   Button,
+  Menu,
+  MenuHandler,
+  MenuList,
+  MenuItem,
+  Avatar,
+  Card,
   IconButton,
+  Collapse,
 } from "@material-tailwind/react";
-import { Outlet } from "react-router-dom";
+import {
+  CubeTransparentIcon,
+  UserCircleIcon,
+  CodeBracketSquareIcon,
+  Square3Stack3DIcon,
+  ChevronDownIcon,
+  Cog6ToothIcon,
+  InboxArrowDownIcon,
+  LifebuoyIcon,
+  PowerIcon,
+  Bars2Icon,
+} from "@heroicons/react/24/solid";
+import { AuthContext } from "../../Auth/AuthProvider/AuthProvider";
+import { Link } from "react-router-dom";
+
+// const {user} = useContext(AuthContext);
+// profile menu component
+const profileMenuItems = [
+  {
+    label: "Settings",
+    icon: Cog6ToothIcon,
+    href: "/settings"
+  },
+  {
+    label: "My Profile",
+    icon: UserCircleIcon,
+    href: "/profile"
+  },
+  {
+    label: "Inbox",
+    icon: InboxArrowDownIcon,
+    href: "/inbox"
+  },
+  {
+    label: "Help",
+    icon: LifebuoyIcon,
+    href: "/help"
+  },
+  {
+    label: "Sign Out",
+    icon: PowerIcon,
+  },
+];
+ 
+function ProfileMenu() {
+
+  const {logOut} = useContext(AuthContext);
+
+  const handleSighnOut = () => {
+    console.log("sign out");
+    logOut()
+    .then(() => {
+      console.log("sign out successful");
+    })
+    .catch((error) => {
+      console.log(error);
+    }
+    )
+  }
+
+  const {user} = useContext(AuthContext);
+  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+ 
+  const closeMenu = () => setIsMenuOpen(false);
+ 
+  return (
+    <Menu open={isMenuOpen} handler={setIsMenuOpen} placement="bottom-end">
+      <MenuHandler>
+        <Button
+          variant="text"
+          color="blue-gray"
+          className="flex items-center gap-1 rounded-full py-0.5 pr-2 pl-0.5 lg:ml-auto"
+        >
+          <Avatar
+            variant="circular"
+            size="sm"
+            alt="tania andrew"
+            className="border border-gray-900 p-0.5"
+            src={`${user?.photoURL}`}
+          />
+          <ChevronDownIcon
+            strokeWidth={2.5}
+            className={`h-3 w-3 transition-transform ${
+              isMenuOpen ? "rotate-180" : ""
+            }`}
+          />
+        </Button>
+      </MenuHandler>
+      <MenuList className="p-1">
+        {profileMenuItems.map(({ label, icon, href }, key) => {
+          const isLastItem = key === profileMenuItems.length - 1;
+          return (
+            <MenuItem
+              key={label}
+              onClick={closeMenu}
+              className={`flex items-center gap-2 rounded ${
+                isLastItem
+                  ? "hover:bg-red-500/10 focus:bg-red-500/10 active:bg-red-500/10"
+                  : ""
+              }`}
+            >
+              {React.createElement(icon, {
+                className: `h-4 w-4 ${isLastItem ? "text-red-500" : ""}`,
+                strokeWidth: 2,
+              })}
+              <Typography
+                as="a"
+                href={href}
+                variant="small"
+                className="font-normal"
+                onClick={isLastItem ? handleSighnOut : null}
+                color={isLastItem ? "red" : "inherit"}
+              >
+                {label}
+              </Typography>
+            </MenuItem>
+          );
+        })}
+      </MenuList>
+    </Menu>
+  );
+}
+ 
+// nav list menu
+const navListMenuItems = [
+  {
+    title: "Standard Rooms",
+    description:
+      "Learn how to use @material-tailwind/html, packed with rich components and widgets.",
+      href: "/standard-rooms"
+  },
+  {
+    title: "Deluxe Rooms",
+    description:
+      "Learn how to use @material-tailwind/react, packed with rich components for React.",
+      href: "/deluxe-rooms"
+  },
+  {
+    title: "Primer Rooms",
+    description:
+      "A complete set of UI Elements for building faster websites in less time.",
+      href: "/primer-rooms" 
+  },
+  {
+    title: "Pacific Club Rooms",
+    description:
+      "A complete set of UI Elements for building faster websites in less time.",
+      href: "/pacific-club-rooms"
+  },
+  {
+    title: "Suites",
+    description:
+      "A complete set of UI Elements for building faster websites in less time.",
+      href: "/suites"
+  },
+];
+ 
+function NavListMenu() {
+  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+ 
+  const renderItems = navListMenuItems.map(({ title, description,href }) => (
+    <a href={href} key={title}>
+      <MenuItem>
+        <Typography variant="h6" color="blue-gray" className="mb-1">
+          {title}
+        </Typography>
+        <Typography variant="small" color="gray" className="font-normal">
+          {description}
+        </Typography>
+      </MenuItem>
+    </a>
+  ));
+ 
+  return (
+    <React.Fragment>
+      <Menu allowHover open={isMenuOpen} handler={setIsMenuOpen}>
+        <MenuHandler>
+          <Typography as="a" href="#" variant="small" className="font-normal text-red-500">
+            <MenuItem className="hidden items-center gap-2 font-medium text-blue-gray-900 lg:flex lg:rounded-full">
+              <Square3Stack3DIcon className="h-[18px] w-[18px] text-blue-gray-500" />{" "}
+              ROOM AND SUITES{" "}
+              <ChevronDownIcon
+                strokeWidth={2}
+                className={`h-3 w-3 transition-transform ${
+                  isMenuOpen ? "rotate-180" : ""
+                }`}
+              />
+            </MenuItem>
+          </Typography>
+        </MenuHandler>
+        <MenuList className="hidden w-[36rem] grid-cols-7 gap-3 overflow-visible lg:grid">
+          <Card
+            
+            shadow={false}
+            variant="gradient"
+            className="col-span-3 grid h-full w-full place-items-center rounded-md"
+            style={{backgroundImage: "url('https://i.ibb.co/28Kf2BS/breakfast-buffet-full-continental-english-coffee-orange-juice-salad-croissant-fruit-77238300.webp')"}}
+          >
+            <span></span>
+          </Card>
+          <ul className="col-span-4 flex w-full flex-col gap-1">
+            {renderItems}
+          </ul>
+        </MenuList>
+      </Menu>
+      <MenuItem className="flex items-center gap-2 font-medium text-blue-gray-900 lg:hidden">
+        <Square3Stack3DIcon className="h-[18px] w-[18px] text-blue-gray-500" />{" "}
+        ROOM AND SUITES{" "}
+      </MenuItem>
+      <ul className="ml-6 flex w-full flex-col gap-1 lg:hidden">
+        {renderItems}
+      </ul>
+    </React.Fragment>
+  );
+}
+ 
+// nav list component
+const navListItems = [
+  {
+    label: "Account",
+    icon: UserCircleIcon,
+    href: "/account"
+  },
+  {
+    label: "My Bookings",
+    icon: CubeTransparentIcon,
+    href: "/myBookings"
+  },
+  {
+    label: "Docs",
+    icon: CodeBracketSquareIcon,
+    href: "/docs"
+  },
+];
+ 
+function NavList() {
+  return (
+    <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center">
+      <NavListMenu />
+      {navListItems.map(({ label, icon, href }) => (
+        <Typography
+          key={label}
+          as="a"
+          href={href}
+          variant="small"
+          color="gray"
+          className="font-medium text-blue-gray-500"
+        >
+          <MenuItem className="flex items-center gap-2 lg:rounded-full">
+            {React.createElement(icon, { className: "h-[18px] w-[18px]" })}{" "}
+            <span className="text-gray-900"> {label}</span>
+          </MenuItem>
+        </Typography>
+      ))}
+    </ul>
+  );
+}
  
 export function StickyNavbar() {
-  const [openNav, setOpenNav] = React.useState(false);
+  const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
+  const {user} = useContext(AuthContext);
+  const [isNavOpen, setIsNavOpen] = React.useState(false);
+ 
+  const toggleIsNavOpen = () => setIsNavOpen((cur) => !cur);
+
+  useEffect(()=>{
+    localStorage.setItem("theme", theme);
+    const localTheme = localStorage.getItem("theme");
+    document.querySelector("html").setAttribute("data-theme", localTheme);
+  },[theme])
+  const handleToggle = () => {
+    if(theme === "light"){
+      setTheme("dark");
+    }else{
+      setTheme("light");
+    }
+  }
  
   React.useEffect(() => {
     window.addEventListener(
       "resize",
-      () => window.innerWidth >= 960 && setOpenNav(false),
+      () => window.innerWidth >= 960 && setIsNavOpen(false),
     );
   }, []);
  
-  const navList = (
-    <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center lg:gap-6">
-      <Typography
-        as="li"
-        variant="small"
-        color="blue-gray"
-        className="p-1 font-normal"
-      >
-        <a href="#" className="flex items-center">
-          Pages
-        </a>
-      </Typography>
-      <Typography
-        as="li"
-        variant="small"
-        color="blue-gray"
-        className="p-1 font-normal"
-      >
-        <a href="#" className="flex items-center">
-          Account
-        </a>
-      </Typography>
-      <Typography
-        as="li"
-        variant="small"
-        color="blue-gray"
-        className="p-1 font-normal"
-      >
-        <a href="#" className="flex items-center">
-          Blocks
-        </a>
-      </Typography>
-      <Typography
-        as="li"
-        variant="small"
-        color="blue-gray"
-        className="p-1 font-normal"
-      >
-        <a href="#" className="flex items-center">
-          Docs
-        </a>
-      </Typography>
-    </ul>
-  );
- 
   return (
-    <div className="-m-6 max-h-[768px] w-[calc(100%)] mx-auto overflow-scroll">
-      <Navbar className="sticky top-0 z-10 h-max max-w-full rounded-none px-4 py-2 lg:px-8 lg:py-4">
-        <div className="flex items-center justify-between text-blue-gray-900">
-          <Typography
-            as="a"
-            href="#"
-            className="mr-4 cursor-pointer py-1.5 font-medium"
-          >
-            Material Tailwind
-          </Typography>
-          <div className="flex items-center gap-4">
-            <div className="mr-4 hidden lg:block">{navList}</div>
-            <div className="flex items-center gap-x-1">
-              <Button
-                variant="text"
-                size="sm"
-                className="hidden lg:inline-block"
-              >
-                <span>Log In</span>
-              </Button>
-              <Button
-                variant="gradient"
-                size="sm"
-                className="hidden lg:inline-block"
-              >
-                <span>Sign in</span>
-              </Button>
-            </div>
-            <IconButton
-              variant="text"
-              className="ml-auto h-6 w-6 text-inherit hover:bg-transparent focus:bg-transparent active:bg-transparent lg:hidden"
-              ripple={false}
-              onClick={() => setOpenNav(!openNav)}
-            >
-              {openNav ? (
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  fill="none"
-                  className="h-6 w-6"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                  strokeWidth={2}
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M6 18L18 6M6 6l12 12"
-                  />
-                </svg>
-              ) : (
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  className="h-6 w-6"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth={2}
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    d="M4 6h16M4 12h16M4 18h16"
-                  />
-                </svg>
-              )}
-            </IconButton>
-          </div>
+    <Navbar className="mx-auto max-w-screen-xl p-2 px-4 lg:rounded-full lg:pl-6 sticky inset-0 z-10 ">
+      <div className="relative mx-auto flex items-center justify-between text-blue-gray-900">
+        <div>
+          <Link><img className="h-12" src="/Hotel.png" alt="" /></Link>
         </div>
-        <Collapse open={openNav}>
-          {navList}
-          <div className="flex items-center gap-x-1">
-            <Button fullWidth variant="text" size="sm" className="">
-              <span>Log In</span>
-            </Button>
-            
-          </div>
-        </Collapse>
-      </Navbar>
-      <Outlet></Outlet>
-    </div>
+        <div className="hidden lg:block">
+          <NavList />
+        </div>
+        <IconButton
+          size="sm"
+          color="blue-gray"
+          variant="text"
+          onClick={toggleIsNavOpen}
+          className="ml-auto mr-2 lg:hidden"
+        >
+          <Bars2Icon className="h-6 w-6" />
+        </IconButton>
+       <div>
+        {
+          theme === "light" ? <button onClick={handleToggle} className="btn normal-case btn-neutral sm:btn-sm md:btn-sm lg:btn-sm">Dark</button> : <button onClick={handleToggle} className="btn normal-case btn-active sm:btn-sm md:btn-sm lg:btn-sm">Light</button>
+        }
+       </div>
+ 
+       { user?<div className="flex gap-2 items-center">
+        <h2 className="text-black">{user?.displayName}</h2> <ProfileMenu />
+       </div>:<Button size="sm" variant="text">
+          <Link to={'/login'}><span>Log In</span></Link>
+        </Button> 
+        }
+      </div>
+      <Collapse open={isNavOpen} className="overflow-scroll">
+        <NavList />
+      </Collapse>
+    </Navbar>
   );
 }

@@ -11,10 +11,14 @@ import {
 import { useContext } from "react";
 import { AuthContext } from "../../Auth/AuthProvider/AuthProvider";
 import { redirect, useLocation, useNavigate } from "react-router-dom";
+import {FcGoogle }from 'react-icons/fc'
+import { GoogleAuthProvider } from "firebase/auth";
+
 
 export function LoginCard() {
+  const AuthProvider = new GoogleAuthProvider();
 
-  const { signIn } = useContext(AuthContext);
+  const { signIn, signInWithGoogle } = useContext(AuthContext);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -42,6 +46,19 @@ export function LoginCard() {
     e.target.reset();
   };
 
+  const handleGoogleLogin = () => {
+    signInWithGoogle(AuthProvider)
+    .then((res)=>{
+      console.log(res?.user)
+      navigate(location ? location?.state : "/");
+        redirect("/");
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  }
+
+
   return (
     <Card className=" w-80 md:w-96 mx-auto mt-32">
       <CardHeader
@@ -65,7 +82,7 @@ export function LoginCard() {
             size="lg"
           />
           <div className="-ml-2.5">
-            <Checkbox label="Remember Me" required />
+            <Checkbox label="Remember Me"  />
           </div>
           <Button type="submit" variant="gradient" fullWidth>
             Sign In
@@ -85,6 +102,9 @@ export function LoginCard() {
             Sign up
           </Typography>
         </Typography>
+        <div className="flex items-center justify-center">
+        <button onClick={handleGoogleLogin}><FcGoogle className="text-4xl" ></FcGoogle></button>
+        </div>
       </CardFooter>
     </Card>
   );

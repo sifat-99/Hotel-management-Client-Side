@@ -1,9 +1,12 @@
+
+import { Outlet } from "react-router-dom";
 import { StickyNavbar } from "../SharedComponents/Navbar/Navbar";
 
 const Root = () => {
     return (
-        <div className="mx-auto font-poppins mt-4"  data-aos="zoom-in">
+        <div className="mx-auto font-poppins"  data-aos="zoom-in">
             <StickyNavbar></StickyNavbar>
+            <Outlet></Outlet>
         </div>
     );
 };
