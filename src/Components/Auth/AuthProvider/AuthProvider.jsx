@@ -9,6 +9,7 @@ import {
 } from "firebase/auth";
 import PropTypes from "prop-types";
 import app from "../../Firebase/firebase.config";
+import axios from "axios";
 
 export const AuthContext = createContext(null);
 const auth = getAuth(app);
@@ -46,13 +47,24 @@ const AuthProvider = ({ children }) => {
 
   useEffect(() => {
     const unSubscribe = onAuthStateChanged(auth, (currentUser) => {
+      const userEmail = currentUser?.email || user?.email;
+      const LoggedUser = {email: userEmail}
       setUser(currentUser);
       setLoading(false);
+      if(currentUser){
+        
+        axios.post('http://localhost:5001/jwt',LoggedUser, {withCredentials: true})
+        .then(res => console.log(res.data))
+      }
+      else{
+        axios.post('http://localhost:5001/logout',LoggedUser, {withCredentials: true})
+        .then(res => console.log(res.data))
+      }
     });
     return () => {
       unSubscribe();
     };
-  }, []);
+  }, [user?.email]);
 
   const AuthInfo = {
     user,

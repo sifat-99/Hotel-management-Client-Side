@@ -232,25 +232,28 @@ function NavListMenu() {
 }
 
 // nav list component
-const navListItems = [
-  {
-    label: "Account",
-    icon: UserCircleIcon,
-    href: "/account",
-  },
-  {
-    label: "My Bookings",
-    icon: CubeTransparentIcon,
-    href: "/myBookings",
-  },
-  {
-    label: "Docs",
-    icon: CodeBracketSquareIcon,
-    href: "/docs",
-  },
-];
+
 
 function NavList() {
+
+  const { user } = useContext(AuthContext);
+  const navListItems = [
+    {
+      label: "Account",
+      icon: UserCircleIcon,
+      href: "/account",
+    },
+    {
+      label: "My Bookings",
+      icon: CubeTransparentIcon,
+      href: `/booking?email=${user?.email}`,
+    },
+    {
+      label: "Docs",
+      icon: CodeBracketSquareIcon,
+      href: "/docs",
+    },
+  ];
   return (
     <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center">
       <NavListMenu />
