@@ -7,6 +7,9 @@ import { LoginCard } from "../UserAuthentication/Login/Login";
 import { RegistrationCard } from "../UserAuthentication/Registration/Registration";
 import ErrorPage from "../ErrorPage/ErrorPage";
 import Room from "../RoomsDetails/Room";
+import PrivateRoute from "../PrivateRoutes/PrivateRoute";
+import Account from "../UserInformation/Account";
+import UserBookings from "../UserInformation/UserBookings";
 
 
 const routes = createBrowserRouter([
@@ -31,6 +34,14 @@ const routes = createBrowserRouter([
                 path: "/:id",
                 element: <Room></Room>
             },
+            {
+                path: "/account",
+                element: <PrivateRoute><Account></Account></PrivateRoute>
+            },
+            {
+                path: "myBookings",
+                element: <PrivateRoute><UserBookings></UserBookings></PrivateRoute>
+            }
             
         ]
     },

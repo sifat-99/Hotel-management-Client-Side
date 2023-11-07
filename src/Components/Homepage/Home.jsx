@@ -15,7 +15,6 @@ const Home = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    // Here you can handle the submission, e.g., send the email to your server
     console.log(`Submitting Email: ${email}`);
     event.target.form.reset();
   };

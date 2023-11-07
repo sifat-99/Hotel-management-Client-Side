@@ -193,7 +193,7 @@ function NavListMenu() {
           >
             <MenuItem className="hidden items-center gap-2 font-medium text-blue-gray-900 lg:flex lg:rounded-full">
               <Square3Stack3DIcon className="h-[18px] w-[18px] text-blue-gray-500" />{" "}
-              ROOM AND SUITES{" "}
+              ROOMS AND SUITES{" "}
               <ChevronDownIcon
                 strokeWidth={2}
                 className={`h-3 w-3 transition-transform ${
@@ -222,7 +222,7 @@ function NavListMenu() {
       </Menu>
       <MenuItem className="flex items-center gap-2 font-medium text-blue-gray-900 lg:hidden">
         <Square3Stack3DIcon className="h-[18px] w-[18px] text-blue-gray-500" />{" "}
-        ROOM AND SUITES{" "}
+        ROOMS AND SUITES{" "}
       </MenuItem>
       <ul className="ml-6 flex w-full flex-col gap-1 lg:hidden">
         {renderItems}

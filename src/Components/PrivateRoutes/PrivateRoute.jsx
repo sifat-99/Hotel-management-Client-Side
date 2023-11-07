@@ -1,8 +1,9 @@
 import { useContext } from "react";
-import { AuthContext } from "../../Provider/AuthProvider";
+
 import { Navigate, useLocation } from "react-router-dom";
 import PropTypes from 'prop-types'
 import { Spinner } from "@material-tailwind/react";
+import { AuthContext } from "../Auth/AuthProvider/AuthProvider";
 
 
 const PrivateRoute = ({children}) => {
