@@ -2,12 +2,18 @@ import { Spinner } from "@material-tailwind/react";
 import axios from "axios";
 import React, { useState } from "react";
 import { useParams } from "react-router-dom";
+import StarRating from "./Rating";
 
 const Room = () => {
   const { id } = useParams();
   const [room, setRoom] = React.useState(null);
-  const [remaining, setRemaining] =useState(room?.Remaining);
-  
+  const [remaining, setRemaining] = useState(room?.Remaining);
+  const [available, setAvailable] = useState(remaining);
+  const [rating, setRating] = useState(null);
+  console.log(remaining);
+  console.log(available);
+  console.log(rating);
+  let users = 1;
 
   React.useEffect(() => {
     axios
@@ -15,13 +21,60 @@ const Room = () => {
       .then((res) => {
         setRoom(res.data);
         const remainingSeat = res.data.Remaining;
+        console.log(remainingSeat);
         setRemaining(remainingSeat);
+        setAvailable(remainingSeat);
+        const Rating = res.data.Rating;
+        setRating(Rating);
       })
       .catch((err) => {
         console.log(err);
       });
   }, [id]);
 
+  const handleRemaining = () => {
+    const newRemaining = remaining - 1;
+    console.log(newRemaining);
+    setAvailable(newRemaining);
+    const data = {
+      Remaining: newRemaining,
+    };
+    axios
+      .put(`http://localhost:5001/services/${id}`, data, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+  const handleRating = (num) => {
+    const newRating = rating + num;
+    users = users + 1;
+    console.log(newRating);
+    setRating(newRating);
+    const data = {
+      Rating: newRating,
+    };
+    axios
+      .put(`http://localhost:5001/services/rating/${id}`, data, {
+        headers: {
+          "Content-Type": "application/json",
+        },
+      })
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
+  var AverageRating = rating / users / 10;
+  AverageRating = AverageRating.toFixed(1);
 
   if (!room) {
     return (
@@ -36,35 +89,103 @@ const Room = () => {
   return (
     <div className="max-w-7xl mx-auto mt-12 mb-20">
       <div className=" max-w-screen-2xl mx-auto ">
-        <img className=" h-[40vh] w-full rounded-xl" src={room?.RoomImages[1]} alt="" />
+        <img
+          className=" h-[40vh] w-full rounded-xl"
+          src={room?.RoomImages[1]}
+          alt=""
+        />
       </div>
       <div className="grid mt-14 gap-4 grid-cols-1 lg:grid-cols-4">
         <div className="flex flex-col gap-4">
-            <h1 className="text-2xl font-bold bg-white p-2 rounded-lg text-purple-600">Category: {room?.Category}</h1>
-          <img className=" h-[200px] rounded-lg" src={room?.RoomImages[0]} alt="" />
-          <img className="h-[200px] rounded-lg" src={room?.RoomImages[2]} alt="" />
+          <h1 className="text-2xl font-bold bg-white p-2 rounded-lg text-purple-600">
+            Category: {room?.Category}
+          </h1>
+          <img
+            className=" h-[200px] rounded-lg"
+            src={room?.RoomImages[0]}
+            alt=""
+          />
+          <img
+            className="h-[200px] rounded-lg"
+            src={room?.RoomImages[2]}
+            alt=""
+          />
         </div>
         <div className="grid  mt-14 px-8 lg:col-span-2">
-            <h1 className="text-3xl font-bold ">{room?.Title}</h1>
-            <p className=" text-justify mt-4">{room?.CategoryDescription}</p>
-            </div>
+          <h1 className="text-3xl font-bold ">{room?.Title}</h1>
+          <p className=" text-justify mt-4">{room?.CategoryDescription}</p>
+        </div>
         <div className="mt-14 border p-5 rounded-xl">
-        <h1 className="text-2xl font-bold bg-white p-2 rounded-lg text-purple-600">Category: {room?.Category}</h1>
-        <h1 className="text-2xl font-bold mt-4">Price per night: {room?.PricePerNight}</h1>
-        <p>Room Remaining  :
-             {
-                    remaining > 0 ? <span className="text-green-500 pl-4">Available <span className="text-red-600">({room?.Remaining})</span></span> : <span className="text-red-500 pl-4">Not Available</span>
-             }
-             </p>
-
-             <p>Room Size: <span className="text-blue-600">{room?.RoomSize}</span></p>
-             SpecialOffers:
-             <ol  className="pl-8 mt-2">
-                <li className="list-disc">{room?.SpecialOffers}</li>
-                <li className="list-disc">Complimentary Wifi</li>
-                <li className="list-disc">24 Hours Fitness Center</li>
-             </ol>
-             <button className="btn btn-success mt-4 mx-auto w-full">Book Now</button>
+          <h1 className="text-2xl font-bold bg-white p-2 rounded-lg text-purple-600">
+            Category: {room?.Category}
+          </h1>
+          <h1 className="text-2xl font-bold mt-4">
+            Price per night: {room?.PricePerNight}
+          </h1>
+          <p>
+            Room Remaining :
+            {remaining > 0 ? (
+              <span className="text-green-500 pl-4">
+                Available <span className="text-red-600">({available})</span>
+              </span>
+            ) : (
+              <span className="text-red-500 pl-4">Not Available</span>
+            )}
+          </p>
+          <p>Rating: {AverageRating}</p>
+          <div className="flex gap-2 mt-2">
+            <StarRating rating={AverageRating} />
+          </div>
+          <p>
+            Room Size: <span className="text-blue-600">{room?.RoomSize}</span>
+          </p>
+          SpecialOffers:
+          <ol className="pl-8 mt-2">
+            <li className="list-disc">{room?.SpecialOffers}</li>
+            <li className="list-disc">Complimentary Wifi</li>
+            <li className="list-disc">24 Hours Fitness Center</li>
+          </ol>
+          <button
+            onClick={handleRemaining}
+            className="btn btn-success mt-4 mx-auto w-full"
+          >
+            Book Now
+          </button>
+          <div>
+            <h1 className="mt-5 text-2xl font-bold">Rate Us:</h1>
+            <div className="flex gap-2 mt-2">
+              <button
+                onClick={() => handleRating(1)}
+                className="btn btn-outline btn-primary font-bold text-2xl"
+              >
+                1
+              </button>
+              <button
+                onClick={() => handleRating(2)}
+                className="btn btn-outline btn-primary font-bold text-2xl"
+              >
+                2
+              </button>
+              <button
+                onClick={() => handleRating(3)}
+                className="btn btn-outline btn-primary font-bold text-2xl"
+              >
+                3
+              </button>
+              <button
+                onClick={() => handleRating(4)}
+                className="btn btn-outline btn-primary font-bold text-2xl"
+              >
+                4
+              </button>
+              <button
+                onClick={() => handleRating(5)}
+                className="btn btn-outline btn-primary font-bold text-2xl"
+              >
+                5
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>

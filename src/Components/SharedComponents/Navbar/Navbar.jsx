@@ -301,7 +301,7 @@ export function StickyNavbar() {
   }, []);
 
   return (
-    <Navbar className="mx-auto max-w-screen-xl p-2 px-4 lg:rounded-full lg:pl-6 sticky inset-0 z-10 ">
+    <Navbar className="mx-auto max-w-screen-2xl p-2 px-4 lg:rounded-full lg:pl-6 sticky inset-0 z-10 ">
       <div className="relative mx-auto flex items-center justify-between text-blue-gray-900">
         <div>
           <Link>
@@ -340,7 +340,7 @@ export function StickyNavbar() {
 
         {user ? (
           <div className="flex gap-2 items-center">
-            <h2 className="text-black">{user?.displayName}</h2> <ProfileMenu />
+            <h2 className="text-black flex-wrap">{user?.displayName}</h2> <ProfileMenu />
           </div>
         ) : (
           <Button size="sm" variant="text">

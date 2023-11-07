@@ -72,7 +72,7 @@ const Home = () => {
                   </Carousel>
                 </div>
 
-                <div className="bg-gray-200 p-6 rounded-md mt-12">
+                <div className="bg-gray-200 text-black p-6 rounded-md mt-12">
       <h2 className="text-2xl font-bold mb-2">Subscribe to our newsletter</h2>
       <p className="mb-4">Get updates, deals, and exclusive offers.</p>
       <form onSubmit={handleSubmit}>

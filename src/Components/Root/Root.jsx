@@ -5,7 +5,7 @@ import { FooterWithLogo } from "../SharedComponents/Footer/Footer";
 
 const Root = () => {
     return (
-        <div className="mx-auto font-poppins"  data-aos="zoom-in">
+        <div className="mx-auto font-poppins" style={{backgroundImage: "url('/Bg.png')"}} data-aos="zoom-in">
             <StickyNavbar></StickyNavbar>
             <Outlet></Outlet>
             <FooterWithLogo></FooterWithLogo>
