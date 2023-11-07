@@ -1,7 +1,7 @@
 import { Spinner } from "@material-tailwind/react";
 import axios from "axios";
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import StarRating from "./Rating";
 
 const Room = () => {
@@ -10,6 +10,7 @@ const Room = () => {
   const [remaining, setRemaining] = useState(room?.Remaining);
   const [available, setAvailable] = useState(remaining);
   const [rating, setRating] = useState(null);
+  const [loading, setLoading] = React.useState(true);
   console.log(remaining);
   console.log(available);
   console.log(rating);
@@ -20,6 +21,7 @@ const Room = () => {
       .get(`http://localhost:5001/${id}`)
       .then((res) => {
         setRoom(res.data);
+        setLoading(false);
         const remainingSeat = res.data.Remaining;
         console.log(remainingSeat);
         setRemaining(remainingSeat);
@@ -29,29 +31,13 @@ const Room = () => {
       })
       .catch((err) => {
         console.log(err);
+        setLoading(false);
       });
   }, [id]);
+  if (loading) {
+    return <div>Loading...</div>;
+  }
 
-  const handleRemaining = () => {
-    const newRemaining = remaining - 1;
-    console.log(newRemaining);
-    setAvailable(newRemaining);
-    const data = {
-      Remaining: newRemaining,
-    };
-    axios
-      .put(`http://localhost:5001/services/${id}`, data, {
-        headers: {
-          "Content-Type": "application/json",
-        },
-      })
-      .then((response) => {
-        console.log(response.data);
-      })
-      .catch((error) => {
-        console.error(error);
-      });
-  };
   const handleRating = (num) => {
     const newRating = rating + num;
     users = users + 1;
@@ -145,12 +131,23 @@ const Room = () => {
             <li className="list-disc">Complimentary Wifi</li>
             <li className="list-disc">24 Hours Fitness Center</li>
           </ol>
-          <button
-            onClick={handleRemaining}
-            className="btn btn-success mt-4 mx-auto w-full"
-          >
-            Book Now
-          </button>
+          {
+            available >0 ?<Link
+            to={{
+             pathname: `/${id}/booking`,
+             state: { 
+               room
+             }
+           }}
+           >
+             <button className="btn btn-success mt-4 mx-auto w-full">
+               Book Now
+             </button>
+           </Link> : <button disabled className="btn btn-danger mt-4 mx-auto w-full">
+              Book Now
+            </button>
+
+          }
           <div>
             <h1 className="mt-5 text-2xl font-bold">Rate Us:</h1>
             <div className="flex gap-2 mt-2">
