@@ -25,11 +25,6 @@ const Home = () => {
         <CarouselCustomNavigation></CarouselCustomNavigation>
       </div>
 
-      <div className="mt-12">
-      {/* <PromotionBanner /> */}
-      {/* Rest of your home page components */}
-      </div>
-
       {!user && (
         <div className="w-[70vw] mx-auto border border-pink-100 mt-12 h-[10vh] rounded-lg flex items-center justify-center gap-8 bg-pink-400 text-black font-bold px-4">
           <h2 className="text-2xl md:text-6xl">Login to Save 30%</h2>
@@ -39,7 +34,7 @@ const Home = () => {
         </div>
       )}
 
-      <div className="mx-auto max-w-screen-2xl py-12 mt-12 px-8">
+      <div className="mx-auto max-w-screen-2xl py-12 px-8">
         
 
 
