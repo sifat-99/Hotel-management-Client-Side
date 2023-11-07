@@ -11,7 +11,7 @@ const Account = () => {
 
 
     return (
-        <div className="mx-auto max-w-7xl mt-20  flex gap-12 justify-center">
+        <div className="mx-auto max-w-7xl h-[70vh] items-center flex gap-12 justify-center">
             
             <img className="w-[150px] h-[150px] mt-20 ml-8 rounded-full bg-white" src={user?.photoURL} alt="" />
             <div className="mt-20">

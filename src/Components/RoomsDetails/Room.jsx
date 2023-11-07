@@ -27,7 +27,9 @@ const Room = () => {
     return (
       <div className="text-center mt-32">
         <Spinner className="h-16 w-16 text-gray-900/50 mt-20 text-center mx-auto" />
-        <h1 className="text-center text-6xl mt-4">Loading........</h1>
+        <h1 className="text-center text-6xl mt-4">Be Patient........</h1>
+        <h1 className="text-center text-6xl mt-4">Coming soon....</h1>
+        <Spinner className="h-12 w-12 mx-auto mt-12" />
       </div>
     );
   }
