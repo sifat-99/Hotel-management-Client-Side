@@ -6,6 +6,7 @@ import Root from "../Root/Root";
 import { LoginCard } from "../UserAuthentication/Login/Login";
 import { RegistrationCard } from "../UserAuthentication/Registration/Registration";
 import ErrorPage from "../ErrorPage/ErrorPage";
+import Room from "../RoomsDetails/Room";
 
 
 const routes = createBrowserRouter([
@@ -15,7 +16,7 @@ const routes = createBrowserRouter([
         errorElement: <ErrorPage></ErrorPage>,
         children: [
             {
-                path: "/",
+                index: true,
                 element: <Home></Home>
             },
             {
@@ -27,8 +28,10 @@ const routes = createBrowserRouter([
                 element: <RegistrationCard></RegistrationCard>
             },
             {
-                path: "/about",
-            }
+                path: "/:id",
+                element: <Room></Room>
+            },
+            
         ]
     },
 ])

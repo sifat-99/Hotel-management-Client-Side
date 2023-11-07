@@ -33,50 +33,48 @@ const profileMenuItems = [
   {
     label: "Settings",
     icon: Cog6ToothIcon,
-    href: "/settings"
+    href: "/settings",
   },
   {
     label: "My Profile",
     icon: UserCircleIcon,
-    href: "/profile"
+    href: "/profile",
   },
   {
     label: "Inbox",
     icon: InboxArrowDownIcon,
-    href: "/inbox"
+    href: "/inbox",
   },
   {
     label: "Help",
     icon: LifebuoyIcon,
-    href: "/help"
+    href: "/help",
   },
   {
     label: "Sign Out",
     icon: PowerIcon,
   },
 ];
- 
-function ProfileMenu() {
 
-  const {logOut} = useContext(AuthContext);
+function ProfileMenu() {
+  const { logOut } = useContext(AuthContext);
 
   const handleSighnOut = () => {
     console.log("sign out");
     logOut()
-    .then(() => {
-      console.log("sign out successful");
-    })
-    .catch((error) => {
-      console.log(error);
-    }
-    )
-  }
+      .then(() => {
+        console.log("sign out successful");
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
-  const {user} = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
- 
+
   const closeMenu = () => setIsMenuOpen(false);
- 
+
   return (
     <Menu open={isMenuOpen} handler={setIsMenuOpen} placement="bottom-end">
       <MenuHandler>
@@ -134,62 +132,65 @@ function ProfileMenu() {
     </Menu>
   );
 }
- 
+
 // nav list menu
 const navListMenuItems = [
   {
+    id: "Standard",
     title: "Standard Rooms",
-    description:
-      "Learn how to use @material-tailwind/html, packed with rich components and widgets.",
-      href: "/standard-rooms"
+
+    href: "/standard-rooms",
   },
   {
+    id: "Deluxe",
     title: "Deluxe Rooms",
-    description:
-      "Learn how to use @material-tailwind/react, packed with rich components for React.",
-      href: "/deluxe-rooms"
+
+    href: "/Premier-rooms",
   },
   {
-    title: "Primer Rooms",
-    description:
-      "A complete set of UI Elements for building faster websites in less time.",
-      href: "/primer-rooms" 
+    id: "Premier",
+    title: "Premier Rooms",
+    href: "/Premier-rooms",
   },
   {
+    id: "Pacific",
     title: "Pacific Club Rooms",
-    description:
-      "A complete set of UI Elements for building faster websites in less time.",
-      href: "/pacific-club-rooms"
+
+    href: "/pacific-club-rooms",
   },
   {
+    id: "Suites",
     title: "Suites",
-    description:
-      "A complete set of UI Elements for building faster websites in less time.",
-      href: "/suites"
+    href: "/suites",
   },
 ];
- 
+
 function NavListMenu() {
   const [isMenuOpen, setIsMenuOpen] = React.useState(false);
- 
-  const renderItems = navListMenuItems.map(({ title, description,href }) => (
-    <a href={href} key={title}>
+
+  const renderItems = navListMenuItems.map(({ title,id }) => (
+    <a href={`${id}`} key={title}>
       <MenuItem>
         <Typography variant="h6" color="blue-gray" className="mb-1">
           {title}
         </Typography>
-        <Typography variant="small" color="gray" className="font-normal">
+        {/* <Typography variant="small" color="gray" className="font-normal">
           {description}
-        </Typography>
+        </Typography> */}
       </MenuItem>
     </a>
   ));
- 
+
   return (
     <React.Fragment>
       <Menu allowHover open={isMenuOpen} handler={setIsMenuOpen}>
         <MenuHandler>
-          <Typography as="a" href="#" variant="small" className="font-normal text-red-500">
+          <Typography
+            as="a"
+            href="#"
+            variant="small"
+            className="font-normal text-red-500"
+          >
             <MenuItem className="hidden items-center gap-2 font-medium text-blue-gray-900 lg:flex lg:rounded-full">
               <Square3Stack3DIcon className="h-[18px] w-[18px] text-blue-gray-500" />{" "}
               ROOM AND SUITES{" "}
@@ -204,11 +205,13 @@ function NavListMenu() {
         </MenuHandler>
         <MenuList className="hidden w-[36rem] grid-cols-7 gap-3 overflow-visible lg:grid">
           <Card
-            
             shadow={false}
             variant="gradient"
             className="col-span-3 grid h-full w-full place-items-center rounded-md"
-            style={{backgroundImage: "url('https://i.ibb.co/28Kf2BS/breakfast-buffet-full-continental-english-coffee-orange-juice-salad-croissant-fruit-77238300.webp')"}}
+            style={{
+              backgroundImage:
+                "url('https://i.ibb.co/28Kf2BS/breakfast-buffet-full-continental-english-coffee-orange-juice-salad-croissant-fruit-77238300.webp')",
+            }}
           >
             <span></span>
           </Card>
@@ -227,26 +230,26 @@ function NavListMenu() {
     </React.Fragment>
   );
 }
- 
+
 // nav list component
 const navListItems = [
   {
     label: "Account",
     icon: UserCircleIcon,
-    href: "/account"
+    href: "/account",
   },
   {
     label: "My Bookings",
     icon: CubeTransparentIcon,
-    href: "/myBookings"
+    href: "/myBookings",
   },
   {
     label: "Docs",
     icon: CodeBracketSquareIcon,
-    href: "/docs"
+    href: "/docs",
   },
 ];
- 
+
 function NavList() {
   return (
     <ul className="mt-2 mb-4 flex flex-col gap-2 lg:mb-0 lg:mt-0 lg:flex-row lg:items-center">
@@ -269,39 +272,41 @@ function NavList() {
     </ul>
   );
 }
- 
+
 export function StickyNavbar() {
   const [theme, setTheme] = useState(localStorage.getItem("theme") || "light");
-  const {user} = useContext(AuthContext);
+  const { user } = useContext(AuthContext);
   const [isNavOpen, setIsNavOpen] = React.useState(false);
- 
+
   const toggleIsNavOpen = () => setIsNavOpen((cur) => !cur);
 
-  useEffect(()=>{
+  useEffect(() => {
     localStorage.setItem("theme", theme);
     const localTheme = localStorage.getItem("theme");
     document.querySelector("html").setAttribute("data-theme", localTheme);
-  },[theme])
+  }, [theme]);
   const handleToggle = () => {
-    if(theme === "light"){
+    if (theme === "light") {
       setTheme("dark");
-    }else{
+    } else {
       setTheme("light");
     }
-  }
- 
+  };
+
   React.useEffect(() => {
     window.addEventListener(
       "resize",
-      () => window.innerWidth >= 960 && setIsNavOpen(false),
+      () => window.innerWidth >= 960 && setIsNavOpen(false)
     );
   }, []);
- 
+
   return (
     <Navbar className="mx-auto max-w-screen-xl p-2 px-4 lg:rounded-full lg:pl-6 sticky inset-0 z-10 ">
       <div className="relative mx-auto flex items-center justify-between text-blue-gray-900">
         <div>
-          <Link><img className="h-12" src="/Hotel.png" alt="" /></Link>
+          <Link>
+            <img className="h-12" src="/Hotel.png" alt="" />
+          </Link>
         </div>
         <div className="hidden lg:block">
           <NavList />
@@ -315,18 +320,35 @@ export function StickyNavbar() {
         >
           <Bars2Icon className="h-6 w-6" />
         </IconButton>
-       <div>
-        {
-          theme === "light" ? <button onClick={handleToggle} className="btn normal-case btn-neutral sm:btn-sm md:btn-sm lg:btn-sm">Dark</button> : <button onClick={handleToggle} className="btn normal-case btn-active sm:btn-sm md:btn-sm lg:btn-sm">Light</button>
-        }
-       </div>
- 
-       { user?<div className="flex gap-2 items-center">
-        <h2 className="text-black">{user?.displayName}</h2> <ProfileMenu />
-       </div>:<Button size="sm" variant="text">
-          <Link to={'/login'}><span>Log In</span></Link>
-        </Button> 
-        }
+        <div>
+          {theme === "light" ? (
+            <button
+              onClick={handleToggle}
+              className="btn normal-case btn-neutral sm:btn-sm md:btn-sm lg:btn-sm"
+            >
+              Dark
+            </button>
+          ) : (
+            <button
+              onClick={handleToggle}
+              className="btn normal-case btn-active sm:btn-sm md:btn-sm lg:btn-sm"
+            >
+              Light
+            </button>
+          )}
+        </div>
+
+        {user ? (
+          <div className="flex gap-2 items-center">
+            <h2 className="text-black">{user?.displayName}</h2> <ProfileMenu />
+          </div>
+        ) : (
+          <Button size="sm" variant="text">
+            <Link to={"/login"}>
+              <span>Log In</span>
+            </Link>
+          </Button>
+        )}
       </div>
       <Collapse open={isNavOpen} className="overflow-scroll">
         <NavList />
