@@ -1,7 +1,7 @@
 // import {  Typography } from "@material-tailwind/react";
 import { CarouselCustomNavigation } from "./Banner";
 import { Link } from "react-router-dom";
-import { useContext, useState } from "react";
+import  { useContext, useState } from "react";
 import { AuthContext } from "../Auth/AuthProvider/AuthProvider";
 import { Carousel } from "@material-tailwind/react";
 import MapComponent from "../ExtraPage/Map";
@@ -14,6 +14,7 @@ import swal from "sweetalert";
 
 const Home = () => {
   const { user } = useContext(AuthContext);
+  // const [subscriber, setSubscriber] = useState();
 
   const [email, setEmail] = useState('');
   const handleSubmit = (event) => {
@@ -32,11 +33,23 @@ const Home = () => {
         console.log(res.data);
       })
       .catch((error) => console.error(error));
-
-
-
-    // event.target.form.reset();
   };
+
+
+  // React.useEffect(() => {
+  //   fetch('http://localhost:5001/subscribers')
+  //     .then(response => response.json())
+  //     .then(data => {
+  //       console.log(data);
+  //     })
+  //     .catch((error) => {
+  //       console.log(error);
+  //     });
+  // }, []);
+
+// console.log(subscriber)
+
+
   return (
     
     <div data-aos="zoom-in-down">
