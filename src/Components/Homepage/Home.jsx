@@ -23,11 +23,11 @@ const Home = () => {
   };
   return (
     
-    <div>
+    <div data-aos="zoom-in-down">
       <Helmet>
         <title>Relux Pacific</title>
       </Helmet>
-      <div className="h-[50vh] w-ful mx-12 mt-12">
+      <div data-aos="zoom-in-down" className="h-[50vh] w-ful mx-12 mt-12">
         <CarouselCustomNavigation></CarouselCustomNavigation>
       </div>
 
@@ -44,7 +44,7 @@ const Home = () => {
         
 
 
-        <div className="mt-12">
+        <div data-aos="zoom-in-down" className="mt-12">
                   <h2 className="text-3xl font-bold mb-8 text-center underline">...User Testimonials...</h2>
                   <Carousel
                     className=" shadow-md rounded-md overflow-hidden bg-gray-800"

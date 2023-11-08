@@ -12,7 +12,7 @@ const Account = () => {
 
 
     return (
-        <div className="mx-auto max-w-7xl h-[70vh] items-center flex gap-12 justify-center">
+        <div data-aos="zoom-in-down" className="mx-auto max-w-7xl h-[70vh] items-center flex gap-12 justify-center">
             <Helmet>
                 <title>Profile</title>
             </Helmet>

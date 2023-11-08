@@ -68,7 +68,7 @@ const Room = () => {
 
   if (!room) {
     return (
-      <div className="text-center mt-32">
+      <div data-aos="zoom-in-down" className="text-center mt-32">
         <Spinner className="h-16 w-16 text-gray-900/50 mt-20 text-center mx-auto" />
         <h1 className="text-center text-6xl mt-4">Be Patient........</h1>
         <h1 className="text-center text-6xl mt-4">Coming soon....</h1>
@@ -77,7 +77,7 @@ const Room = () => {
     );
   }
   return (
-    <div className="max-w-7xl mx-auto mt-12 mb-20">
+    <div data-aos="zoom-in-down" className="max-w-7xl mx-auto mt-12 mb-20">
       <div className=" max-w-screen-2xl mx-auto ">
         <img
           className=" h-[40vh] w-full rounded-xl"

@@ -67,7 +67,7 @@ export function RegistrationCard() {
   };
 
   return (
-    <div>
+    <div data-aos="zoom-in-down">
       <Helmet>
         <title>Registration</title>
       </Helmet>
