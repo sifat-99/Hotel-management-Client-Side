@@ -1,14 +1,17 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import './index.css'
-import { RouterProvider } from 'react-router-dom'
-import routes from './Components/Routes/Routes.jsx'
-import AuthProvider from './Components/Auth/AuthProvider/AuthProvider.jsx'
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import { RouterProvider } from "react-router-dom";
+import routes from "./Components/Routes/Routes.jsx";
+import AuthProvider from "./Components/Auth/AuthProvider/AuthProvider.jsx";
+import { HelmetProvider } from "react-helmet-async";
 
-ReactDOM.createRoot(document.getElementById('root')).render(
+ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
-   <AuthProvider>
-      <RouterProvider router={routes}></RouterProvider>
-    </AuthProvider>
-  </React.StrictMode>,
-)
+    <HelmetProvider>
+      <AuthProvider>
+        <RouterProvider router={routes}></RouterProvider>
+      </AuthProvider>
+    </HelmetProvider>
+  </React.StrictMode>
+);

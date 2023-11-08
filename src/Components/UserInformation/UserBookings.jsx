@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../Auth/AuthProvider/AuthProvider";
 import moment from "moment";
+import { Helmet } from "react-helmet-async";
 
 const UserBookings = () => {
   const [bookings, setBookings] = useState([]);
@@ -31,9 +32,11 @@ const UserBookings = () => {
 
   const isDateValid = (date) => {
     const currentDate = moment().format("YY-MM-DD");
+    // const bookingDate = moment(date).format("YY-MM-DD");
+    // console.log(bookingDate)
     const currentDateInt = parseInt(currentDate.split("-")[2]);
     const bookingDateInt = parseInt(date.split("-")[2]);
-    console.log(currentDateInt,bookingDateInt)
+    // console.log(currentDateInt,bookingDateInt)
     if((currentDateInt-bookingDateInt)>1){
         return true;
         }
@@ -47,6 +50,9 @@ const UserBookings = () => {
 
   return (
     <div>
+      <Helmet>
+        <title>Booking</title>
+      </Helmet>
       <h2 className="text-6xl text-center mt-14 mb-8">Booking List:</h2>
       <table className="table max-w-7xl w-11/12 mx-auto border-2 mb-12">
         <thead>

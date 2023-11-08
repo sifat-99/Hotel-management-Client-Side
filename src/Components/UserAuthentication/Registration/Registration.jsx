@@ -11,6 +11,7 @@ import {
 import { useContext, useState } from "react";
 import { AuthContext } from "../../Auth/AuthProvider/AuthProvider";
 import swal from "sweetalert";
+import { Helmet } from "react-helmet-async";
 
 
 export function RegistrationCard() {
@@ -66,7 +67,11 @@ export function RegistrationCard() {
   };
 
   return (
-    <Card className="w-96 mx-auto mt-32">
+    <div>
+      <Helmet>
+        <title>Registration</title>
+      </Helmet>
+      <Card className="w-96 mx-auto mt-32 mb-20">
       <CardHeader
         variant="gradient"
         color="gray"
@@ -119,5 +124,6 @@ export function RegistrationCard() {
         </Typography>
       </CardFooter>
     </Card>
+    </div>
   );
 }

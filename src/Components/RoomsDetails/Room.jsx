@@ -11,9 +11,9 @@ const Room = () => {
   const [available, setAvailable] = useState(remaining);
   const [rating, setRating] = useState(null);
   const [loading, setLoading] = React.useState(true);
-  console.log(remaining);
-  console.log(available);
-  console.log(rating);
+  // console.log(remaining);
+  // console.log(available);
+  // console.log(rating);
   let users = 1;
 
   React.useEffect(() => {
@@ -35,13 +35,17 @@ const Room = () => {
       });
   }, [id]);
   if (loading) {
-    return <div>Loading...</div>;
+    return <div className=" flex h-[60vh] flex-col justify-center items-center w-full mx-auto">
+      <h1 className="text-6xl mt-30">Loading</h1>
+      <br />
+      <Spinner className="h-12 w-12" />
+      </div>;
   }
 
   const handleRating = (num) => {
     const newRating = rating + num;
     users = users + 1;
-    console.log(newRating);
+    // console.log(newRating);
     setRating(newRating);
     const data = {
       Rating: newRating,

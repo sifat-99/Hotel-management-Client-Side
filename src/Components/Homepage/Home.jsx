@@ -5,10 +5,13 @@ import { useContext, useState } from "react";
 import { AuthContext } from "../Auth/AuthProvider/AuthProvider";
 import { Carousel } from "@material-tailwind/react";
 import MapComponent from "../ExtraPage/Map";
+import { Helmet } from "react-helmet-async";
 
 
 
 const Home = () => {
+
+
   const { user } = useContext(AuthContext);
 
   const [email, setEmail] = useState('');
@@ -19,7 +22,11 @@ const Home = () => {
     event.target.form.reset();
   };
   return (
+    
     <div>
+      <Helmet>
+        <title>Relux Pacific</title>
+      </Helmet>
       <div className="h-[50vh] w-ful mx-12 mt-12">
         <CarouselCustomNavigation></CarouselCustomNavigation>
       </div>
