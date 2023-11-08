@@ -22,7 +22,7 @@ const Home = () => {
     // console.log(`Submitting Email: ${email}`);
 
     axios
-      .post("http://localhost:5001/subscribe", {email: email})
+      .post("https://hotel-management-server-two.vercel.app/subscribe", {email: email})
       .then((res) => {
         swal({
           title: "Good job!",
@@ -37,7 +37,7 @@ const Home = () => {
 
 
   // React.useEffect(() => {
-  //   fetch('http://localhost:5001/subscribers')
+  //   fetch('https://hotel-management-server-two.vercel.app/subscribers')
   //     .then(response => response.json())
   //     .then(data => {
   //       console.log(data);

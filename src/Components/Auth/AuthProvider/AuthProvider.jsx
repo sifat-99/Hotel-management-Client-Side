@@ -53,11 +53,11 @@ const AuthProvider = ({ children }) => {
       setLoading(false);
       if(currentUser){
         
-        axios.post('http://localhost:5001/jwt',LoggedUser, {withCredentials: true})
+        axios.post('https://hotel-management-server-two.vercel.app/jwt',LoggedUser, {withCredentials: true})
         .then(res => console.log(res.data))
       }
       else{
-        axios.post('http://localhost:5001/logout',LoggedUser, {withCredentials: true})
+        axios.post('https://hotel-management-server-two.vercel.app/logout',LoggedUser, {withCredentials: true})
         .then(res => console.log(res.data))
       }
     });

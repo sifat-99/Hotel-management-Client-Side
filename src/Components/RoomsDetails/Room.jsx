@@ -18,7 +18,7 @@ const Room = () => {
 
   React.useEffect(() => {
     axios
-      .get(`http://localhost:5001/${id}`)
+      .get(`https://hotel-management-server-two.vercel.app/${id}`)
       .then((res) => {
         setRoom(res.data);
         setLoading(false);
@@ -51,7 +51,7 @@ const Room = () => {
       Rating: newRating,
     };
     axios
-      .put(`http://localhost:5001/services/rating/${id}`, data, {
+      .put(`https://hotel-management-server-two.vercel.app/services/rating/${id}`, data, {
         headers: {
           "Content-Type": "application/json",
         },

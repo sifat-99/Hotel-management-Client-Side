@@ -6,7 +6,7 @@ import swal from "sweetalert";
 const UserBookings = () => {
   const [bookings, setBookings] = useState([]);
   const { user } = useContext(AuthContext);
-  const url = `http://localhost:5001/booking?email=${user.email}`;
+  const url = `https://hotel-management-server-two.vercel.app/booking?email=${user.email}`;
 
   useEffect(() => {
     fetch(url, { credentials: "include" })
@@ -15,7 +15,7 @@ const UserBookings = () => {
   }, [url]);
 
   const handleCancelBooking = (id) => {
-    fetch(`http://localhost:5001/booking/${id}`, {
+    fetch(`https://hotel-management-server-two.vercel.app/booking/${id}`, {
       method: "DELETE",
       credentials: "include",
     })

@@ -35,7 +35,7 @@ const BookingForm = () => {
     console.log(booking);
 
     axios
-      .post("http://localhost:5001/bookings", booking)
+      .post("https://hotel-management-server-two.vercel.app/bookings", booking)
       .then((res) => {
         swal({
           title: "Good job!",
@@ -50,7 +50,7 @@ const BookingForm = () => {
 
   React.useEffect(() => {
     axios
-      .get(`http://localhost:5001/${id}`)
+      .get(`https://hotel-management-server-two.vercel.app/${id}`)
       .then((res) => {
         setRoom(res.data);
         const remainingSeat = res.data.Remaining;
@@ -70,7 +70,7 @@ const BookingForm = () => {
       Remaining: newRemaining,
     };
     axios
-      .put(`http://localhost:5001/services/${id}`, data, {
+      .put(`https://hotel-management-server-two.vercel.app/services/${id}`, data, {
         headers: {
           "Content-Type": "application/json",
         },
