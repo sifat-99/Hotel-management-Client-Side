@@ -346,11 +346,19 @@ export function StickyNavbar() {
             <h2 className="text-black flex-wrap">{user?.displayName}</h2> <ProfileMenu />
           </div>
         ) : (
-          <Button size="sm" variant="text">
+          <div className="flex flex-row-reverse">
+            <Button size="sm" variant="text">
             <Link to={"/login"}>
               <span>Log In</span>
             </Link>
           </Button>
+            <Button size="sm" variant="text">
+            <Link to={"/register"}>
+              <span>Registration</span>
+            </Link>
+          </Button>
+
+          </div>
         )}
       </div>
       <Collapse open={isNavOpen} className="overflow-scroll">

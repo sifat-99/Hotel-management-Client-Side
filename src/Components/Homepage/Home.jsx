@@ -9,9 +9,8 @@ import { Helmet } from "react-helmet-async";
 
 
 
+
 const Home = () => {
-
-
   const { user } = useContext(AuthContext);
 
   const [email, setEmail] = useState('');
@@ -27,6 +26,7 @@ const Home = () => {
       <Helmet>
         <title>Relux Pacific</title>
       </Helmet>
+
       <div data-aos="zoom-in-down" className="h-[50vh] w-ful mx-12 mt-12">
         <CarouselCustomNavigation></CarouselCustomNavigation>
       </div>
