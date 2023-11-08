@@ -6,6 +6,8 @@ import { AuthContext } from "../Auth/AuthProvider/AuthProvider";
 import { Carousel } from "@material-tailwind/react";
 import MapComponent from "../ExtraPage/Map";
 import { Helmet } from "react-helmet-async";
+import axios from "axios";
+import swal from "sweetalert";
 
 
 
@@ -14,11 +16,26 @@ const Home = () => {
   const { user } = useContext(AuthContext);
 
   const [email, setEmail] = useState('');
-
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(`Submitting Email: ${email}`);
-    event.target.form.reset();
+    // console.log(`Submitting Email: ${email}`);
+
+    axios
+      .post("http://localhost:5001/subscribe", {email: email})
+      .then((res) => {
+        swal({
+          title: "Good job!",
+          text: "Thanks you Subscribe our Hotel Page",
+          icon: "success",
+          button: " Okay!!!",
+        })
+        console.log(res.data);
+      })
+      .catch((error) => console.error(error));
+
+
+
+    // event.target.form.reset();
   };
   return (
     
