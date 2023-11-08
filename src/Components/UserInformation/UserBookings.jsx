@@ -2,6 +2,7 @@ import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../Auth/AuthProvider/AuthProvider";
 import moment from "moment";
 import { Helmet } from "react-helmet-async";
+import swal from "sweetalert";
 
 const UserBookings = () => {
   const [bookings, setBookings] = useState([]);
@@ -23,7 +24,12 @@ const UserBookings = () => {
       .then((data) => {
         console.log(data);
         if (data.deletedCount) {
-          alert("Booking Canceled Successfully");
+          swal({
+            title: "Okay!!",
+            text: "You Canceled Your Booking!",
+            icon: "Error",
+            button: "Okay!",
+          })
           const remaining = bookings.filter((booking) => booking._id !== id);
           setBookings(remaining);
         }

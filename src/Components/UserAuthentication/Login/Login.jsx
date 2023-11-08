@@ -14,6 +14,8 @@ import { redirect, useLocation, useNavigate } from "react-router-dom";
 import { FcGoogle } from "react-icons/fc";
 import { GoogleAuthProvider } from "firebase/auth";
 import { Helmet } from "react-helmet-async";
+import toast from "react-hot-toast";
+import swal from "sweetalert";
 
 export function LoginCard() {
   const AuthProvider = new GoogleAuthProvider();
@@ -34,8 +36,16 @@ export function LoginCard() {
     console.log(userInfo);
 
     signIn(email, password)
+    swal({
+      title: "Good job!",
+      text: "Login successful!",
+      icon: "success",
+      button:" Okay!!!",
+    })
+    toast('Successfully Logged In')
       .then((res) => {
         console.log(res?.user);
+        
         navigate(location ? location?.state : "/");
         redirect("/");
       })
@@ -49,6 +59,12 @@ export function LoginCard() {
   const handleGoogleLogin = () => {
     signInWithGoogle(AuthProvider)
       .then((res) => {
+        swal({
+          title: "Good job!",
+          text: "Login successful!",
+          icon: "success",
+          button: " Okay!!!",
+        })
         console.log(res?.user);
         navigate(location ? location?.state : "/");
         redirect("/");
