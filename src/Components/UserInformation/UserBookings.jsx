@@ -59,28 +59,28 @@ const UserBookings = () => {
     <div>
       <h2 className="text-6xl text-center mt-14 mb-8">Booking List:</h2>
       <table className="table max-w-7xl w-11/12 mx-auto border-2 mb-12">
-        <thead>
+        <thead className="max-w-screen-2xl">
           <tr>
             <th>Name</th>
-            <th>Booking ID</th>
-            <th>Check-in Date</th>
-            <th>Check-out Date</th>
-            <th>Room Type</th>
-            <th>Cancel Booking</th>
+            <th>ID</th>
+            <th>Check-in</th>
+            {/* <th>Check-out</th> */}
+            <th>Category</th>
+            <th>Action</th>
           </tr>
         </thead>
-        <tbody>
+        <tbody className="max-w-screen-2xl">
           {bookings.map((booking) => (
             <tr key={booking._id} className="mb-4">
-              <td className="p-6">{booking.name}</td>
-              <td className="p-6">{booking._id.slice(-3)}</td>
-              <td className="p-6">{booking.date}</td>
-              <td className="p-6">{booking.date2}</td>
-              <td className="p-6">{booking.Category}</td>
+              <td >{booking.name}</td>
+              <td >{booking._id.slice(-3)}</td>
+              <td >{booking.date}</td>
+              {/* <td >{booking.date2}</td> */}
+              <td >{booking.Category}</td>
               <td>
                 {isDateValid(booking.date) ? (
                   <button
-                    className="bg-red-500 text-white px-4 py-2 rounded-lg"
+                    className="bg-red-500 text-white  rounded-lg"
                     onClick={() => handleCancelBooking(booking._id)}
                   >
                     Cancel
@@ -88,7 +88,7 @@ const UserBookings = () => {
                 ) : (
                   <button
                     disabled
-                    className="bg-gray-300 text-white px-4 py-2 rounded-lg"
+                    className="bg-gray-300 text-white  rounded-lg"
                   >
                     Cannot Cancel
                   </button>
