@@ -14,6 +14,7 @@ const BookingForm = () => {
   const [name, setName] = useState(displayName);
   const [Email, setEmail] = useState(email);
   const [date, setDate] = useState("");
+  const [date2, setDate2] = useState("");
   const [Room, setRoom] = React.useState(null);
   const [remaining, setRemaining] = useState(room?.Remaining);
   console.log(remaining);
@@ -27,6 +28,8 @@ const BookingForm = () => {
       name,
       email,
       date,
+      dateINT: parseInt(date.split("-")[2]),
+      date2
     };
     console.log(booking);
 
@@ -99,12 +102,22 @@ const BookingForm = () => {
         />
       </label>
       <label>
-        Date:
+        Check-in Date:
         <input
           className="border-2 px-4 rounded-lg gap-4 flex border-red-500 my-2 w-full"
           type="date"
           value={date}
           onChange={(e) => setDate(e.target.value)}
+          required
+        />
+      </label>
+      <label>
+        Check-out Date:
+        <input
+          className="border-2 px-4 rounded-lg gap-4 flex border-red-500 my-2 w-full"
+          type="date"
+          value={date2}
+          onChange={(e) => setDate2(e.target.value)}
           required
         />
       </label>
