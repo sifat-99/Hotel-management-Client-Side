@@ -2,6 +2,7 @@ import React, { useContext, useState } from "react";
 import axios from "axios";
 import { AuthContext } from "../Auth/AuthProvider/AuthProvider";
 import { useLocation, useParams } from "react-router-dom";
+import swal from "sweetalert";
 
 const BookingForm = () => {
   const { id } = useParams();
@@ -35,7 +36,15 @@ const BookingForm = () => {
 
     axios
       .post("http://localhost:5001/bookings", booking)
-      .then((res) => console.log(res.data))
+      .then((res) => {
+        swal({
+          title: "Good job!",
+          text: "You Booking was successful!",
+          icon: "success",
+          button: " Okay!!!",
+        })
+        console.log(res.data);
+      })
       .catch((error) => console.error(error));
   };
 

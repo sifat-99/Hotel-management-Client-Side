@@ -1,7 +1,6 @@
 import { useContext, useEffect, useState } from "react";
 import { AuthContext } from "../Auth/AuthProvider/AuthProvider";
 import moment from "moment";
-import { Helmet } from "react-helmet-async";
 import swal from "sweetalert";
 
 const UserBookings = () => {
@@ -25,10 +24,10 @@ const UserBookings = () => {
         console.log(data);
         if (data.deletedCount) {
           swal({
-            title: "Okay!!",
-            text: "You Canceled Your Booking!",
-            icon: "Error",
-            button: "Okay!",
+            title: "Thank you!",
+            text: "Your Booking was Cancelled!",
+            icon: "success",
+            button: " Ok!!!",
           })
           const remaining = bookings.filter((booking) => booking._id !== id);
           setBookings(remaining);
@@ -38,16 +37,18 @@ const UserBookings = () => {
 
   const isDateValid = (date) => {
     const currentDate = moment().format("YY-MM-DD");
-    // const bookingDate = moment(date).format("YY-MM-DD");
+    // const bookingDate = moment(date, "YYYY-MM-DD");
     // console.log(bookingDate)
     const currentDateInt = parseInt(currentDate.split("-")[2]);
     const bookingDateInt = parseInt(date.split("-")[2]);
     // console.log(currentDateInt,bookingDateInt)
-    if((currentDateInt-bookingDateInt)>1){
+    if((bookingDateInt-currentDateInt)>1){
+        // console.log(true)
         return true;
         }
         else
         {
+            // console.log(false)
             return false;
         }
 
@@ -56,9 +57,6 @@ const UserBookings = () => {
 
   return (
     <div>
-      <Helmet>
-        <title>Booking</title>
-      </Helmet>
       <h2 className="text-6xl text-center mt-14 mb-8">Booking List:</h2>
       <table className="table max-w-7xl w-11/12 mx-auto border-2 mb-12">
         <thead>
